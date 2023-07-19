@@ -14,9 +14,10 @@ import Navbar from "../components/navBar/Navbar";
 import "./style.scss";
 import { DarkModeContext } from "./context/DarkMode";
 import { useContext } from "react";
+import { AuthContext } from "./context/authContext";
 
 function App() {
-  const currentUser = true;
+  const { currentUser } = useContext(AuthContext);
   const { darkMode } = useContext(DarkModeContext);
 
   const Layout = () => {
