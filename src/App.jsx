@@ -34,7 +34,7 @@ function App() {
               <Outlet />
             </div>
 
-            <RightBar />
+            <RightBar userId={currentUser} />
           </div>
         </div>
       </QueryClientProvider>

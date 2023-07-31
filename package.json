@@ -17,9 +17,11 @@
     "@tanstack/react-query": "^4.29.25",
     "add": "^2.0.6",
     "axios": "^1.4.0",
+    "link-preview-js": "^3.0.4",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-meta-tags": "^1.0.1",
     "react-router-dom": "^6.14.1",
     "sass": "^1.63.6",
     "yarn": "^1.22.19"

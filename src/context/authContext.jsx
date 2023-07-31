@@ -18,13 +18,29 @@ export const AuthContextProvider = ({ children }) => {
     );
     setCurrentUser(res.data);
   };
+  const logout = async () => {
+    try {
+      await axios.post(
+        "http://localhost:8800/api/auth/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      // Clear the current user and remove it from local storage
+      setCurrentUser(null);
+      localStorage.removeItem("user");
+    } catch (error) {
+      console.error("Logout failed: ", error);
+    }
+  };
 
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(currentUser));
   }, [currentUser]);
 
   return (
-    <AuthContext.Provider value={{ currentUser, login }}>
+    <AuthContext.Provider value={{ currentUser, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

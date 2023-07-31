@@ -6,16 +6,19 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Link } from "react-router-dom";
 import Comments from "../comments/Comments";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import moment from "moment";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { makeRequest } from "../../../LinqR/src/axios";
 import { useContext } from "react";
 import { AuthContext } from "../../src/context/authContext";
+import MetaTags from "react-meta-tags";
+import axios from "axios";
 
 const Post = ({ post }) => {
   const [commentOpen, setCommentOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [metadata, setMetadata] = useState(null);
 
   const { currentUser } = useContext(AuthContext);
 
@@ -59,6 +62,27 @@ const Post = ({ post }) => {
     deleteMutation.mutate(post.id);
   };
 
+  const handleTitleClick = () => {
+    if (metadata && metadata.url) {
+      window.location.href = metadata.url;
+    }
+  };
+
+  useEffect(() => {
+    const fetchMetadata = async () => {
+      try {
+        const response = await axios.get(
+          `https://noembed.com/embed?url=${encodeURIComponent(post.desc)}`
+        );
+        setMetadata(response.data);
+      } catch (error) {
+        console.error("Error fetching metadata:", error);
+      }
+    };
+    fetchMetadata();
+  }, [post.desc]);
+
+  console.log(metadata);
   return (
     <div className="post">
       <div className="container">
@@ -80,9 +104,17 @@ const Post = ({ post }) => {
             <button onClick={handleDelete}>delete</button>
           )}
         </div>
-        <div className="content">
-          <p>{post.desc}</p>
-          <img src={"/upload/" + post.img} alt="" />
+        <div className="content" onClick={handleTitleClick}>
+          <div>
+            {metadata && (
+              <div>
+                <h2>{metadata.title}</h2>
+                <p>{metadata.description}</p>
+                <img src={metadata.thumbnail_url} alt={metadata.title} />
+              </div>
+            )}
+          </div>
+          <iframe src={post.desc} width="00" height="600"></iframe>
         </div>
         <div className="info">
           <div className="item">

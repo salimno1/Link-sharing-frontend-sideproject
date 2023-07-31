@@ -12,11 +12,9 @@ const Update = ({ setOpenUpdate, user }) => {
     password: user.password,
     name: user.name,
     city: user.city,
-    website: user.website,
   });
 
   const upload = async (file) => {
-    console.log(file);
     try {
       const formData = new FormData();
       formData.append("file", file);
@@ -133,13 +131,6 @@ const Update = ({ setOpenUpdate, user }) => {
             type="text"
             name="city"
             value={texts.city}
-            onChange={handleChange}
-          />
-          <label>Website</label>
-          <input
-            type="text"
-            name="website"
-            value={texts.website}
             onChange={handleChange}
           />
           <button onClick={handleClick}>Update</button>

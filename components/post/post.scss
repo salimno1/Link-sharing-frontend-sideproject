@@ -45,7 +45,17 @@
 
       .content {
         margin: 20px 0px;
-
+        iframe {
+          overflow: hidden;
+          border: none;
+          box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+          border-radius: 8px;
+          width: 100%;
+          max-height: 500px;
+          object-fit: cover;
+          margin-top: 20px;
+          pointer-events: none;
+        }
         img {
           width: 100%;
           max-height: 500px;
